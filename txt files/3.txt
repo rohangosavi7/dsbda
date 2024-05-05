@@ -1,0 +1,42 @@
+import numpy as np
+import pandas as pd
+
+df = pd.read_csv("./studentmarks.csv")
+df
+
+df.describe()
+
+dfmean = df["english.grade"].mean()
+dfmean
+
+df2 = df[['id', 'age' ,'english.grade', 'math.grade', 'sciences.grade', 'language.grade']]
+df2
+
+df2.describe()
+
+newDF.mean()
+
+df2.mean()
+
+df2.median()
+
+df2.std()
+
+df2.mode()
+
+df2.min()
+
+df2.max()
+
+np.std(df['english.grade'])
+
+grp1 = df2.groupby('age')
+grp1
+
+age20 = grp1.get_group(20)
+age20
+
+grp1.groups
+
+age20.min()
+age20.max()

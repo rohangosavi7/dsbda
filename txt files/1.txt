@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('customers-100.csv')
+df
+
+df.isnull()
+
+df.head()
+
+df.describe()
+
+df.info()
+
+df_size = df.size
+df_size
+
+df_shape = df.shape
+df_shape
+
+df_ndim = df.ndim
+series_ndim = df['name'].ndim
+
+print("Size = {}\n Shape = {}\nShape[0] x Shape[1] = {}".format(df_size, df_shape, df_shape[0]*df_shape[1]))
+
+print("ndim of Dataframe = {}\nndim of series = {}" .format(df_ndim, series_ndim))
+
+df_dtypes = df.dtypes
+df_dtypes
+
+dummies = pd.get_dummies(df.City)
+merged = pd.concat([df, dummies], axis = 'columns')
+
+df

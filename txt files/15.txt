@@ -1,0 +1,44 @@
+import pandas as pd
+import numpy as np
+df = read_csv('covid_vaccine_statewise.csv')
+df
+df.columns
+
+df.describe()
+
+#Number of persons vaccinated first time for india
+df[df['state'] == 'India']
+
+states = np.unique(df['State'])
+
+mh = df[df['State'] == 'Maharashtra']
+
+mh['First Dose Administred'].sum()
+
+for state in states:
+    temp = df[df['State'] == state]
+    print(state, temp['First Dose Administred'].sum())
+
+first_dose = df[df['Updated On'] == '09/08/2021']
+
+first_dose[['State', 'First dose administred']]
+
+first_dose = df[(df['Updated On'] == '09/08/2021') & (df['State'] != 'India')]
+
+x = first_dose[['State', 'First Dose administered']]
+
+x.to_csv('FirstDoseIndia.csv', index = False)
+
+Second_dose = df[(df['Updated On'] == '09/08/2021') & (df['State'] != 'India')]
+x = Second_dose[['State', 'Second dose administered']]
+x.to_csv('SecondDoseIndia.csv', index = False)
+
+# 4. number of males vacccinated
+
+males = df['Male(Individuals Vaccinated)']
+
+males.max()
+
+females = df['Female(Individuals Vaccinated)']
+
+females.max()

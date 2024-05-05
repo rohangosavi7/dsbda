@@ -1,0 +1,66 @@
+import numpy as np
+import pandas as pd
+
+df = pd.read_csv('C:/Users/rohan/Documents/DSBda/student-dataset.csv')
+
+df
+
+df.shape
+
+df.head()
+
+df.tail()
+
+df.head().isnull()
+
+df.count()
+
+df.info()
+
+df.isnull().sum()
+
+df.dropna()
+
+df
+
+df.fillna("0")
+
+df['ethnic.group'].fillna('Not specified')
+
+df['english.grade'].fillna(df['english.grade'].mean())
+
+df['english.grade'].value_counts()
+
+df['english.grade'].fillna(df['english.grade'].mode())
+
+df.bfill()
+
+df.ffill()
+
+df.plot.hist()
+
+df['age'].plot.hist()
+
+x = np.array([2,4,3,6,5,98,78])
+x
+np.mean(x)
+np.median(x)
+
+import matplotlib.pyplot as plt
+plt.boxplot(x);
+df.plot.box();
+
+x = df[['id', 'age']]
+x.describe()
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+x_scaled = scaler.fit_transform(x)
+
+pd.DataFrame(x_scaled).describe()
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+x_scaled = scaler.fit_transform(x)
+
+pd.DataFrame(x_scaled).describe()

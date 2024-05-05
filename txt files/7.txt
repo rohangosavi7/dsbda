@@ -1,0 +1,83 @@
+!pip install nltk -U
+
+!pip install bs4 -U
+
+import nltk
+
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+import nltk
+para="Rajgad (literal meaning Ruling Fort) is a hill fort situated in the Pune district of Maharashtra, India. Formerly known as Murumdev, the fort was the capital of the Mara tha Empire under the rule of Chatrapati Shivaji Maharaj for almost 26 years, after w hich the capital was moved to the Raigad Fort. [1] Treasures discovered from an adjac ent fort called Torna were used to completely build and fortify the Rajgad Fort."
+print(para)
+
+para.split()
+
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+
+sent = sent_tokenize (para)
+sent[2]
+
+words = word_tokenize(para)
+words
+
+from nltk.corpus import stopwords
+swords = stopwords.words('english')
+swords
+
+x  =[word for word in words if word not in swords]
+x
+
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+ps.stem('working')
+
+y=[ps.stem(word) for word in x]
+y
+
+from nltk.stem import WordNetLemmatizer
+wnl=WordNetLemmatizer()
+
+nltk.download('omw-1.4')
+
+wnl.lemmatize('working', pos='v')
+
+print(ps.stem('went'))
+print(wnl.lemmatize('went', pos='v'))
+
+z = [wnl.lemmatize (word, pos='v') for word in x]
+z
+
+import string
+string.punctuation
+
+t=[word for word in words if word not in string.punctuation]
+t
+
+from nltk import pos_tag
+pos_tag(t)
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf = TfidfVectorizer()
+v=tfidf.fit_transform(t)
+v.shape
+
+import pandas as pd
+pd.DataFrame (v)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

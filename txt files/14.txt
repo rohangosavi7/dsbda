@@ -1,0 +1,86 @@
+import pandas as pd
+df = pd.read_csv('tweets.csv')
+pe
+df.shape
+df = pd.read_csv('tweets.csv', nrows = 10000)
+df.shape
+df
+
+df['tweets_len'] = df['tweet'].apply(lambda x : len(x))
+df
+
+sent = 'Hii, Where are you ?'
+
+import string
+
+string.punctuation
+
+count = sum([1 for x in sent if x in string.punctuation])
+
+per = count / (len(sent) - sent.count (' '))
+
+per
+
+def count_punct(sent):
+    count = sum([1 for x in sent if x in string.punctuation])
+    p= round(count/ (len(sent) - sent.count ( ' ' )) * 100, 2)
+    return p
+	
+	
+count_punct(sent)
+
+df['punct%'] = df['tweet'].apply(lambda x:count_punct(x))
+
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+
+s_words = stopwords.words('english')
+
+#analyser function
+def clean_text(text):
+    data = [x for x in text if x not in string.punctuation]
+    data = ''.join(data)
+    data= [ps.stem(x) for x in data.split() if x not in s_words]
+    return data
+	
+
+clean_text(sent)
+
+#input data
+x = df.drop(['label', 'id'],axis = 1)
+​
+#output data
+y = df['label']
+
+y
+x
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf = TfidfVectorizer(analyzer = clean_text)
+x_trans = tfidf.fit_transform(x['tweet'])
+
+x_trans.shape
+
+x_vect = pd.concat([x[['tweets_len', 'punct%']] .reset_index(drop = True), pd.DataFrame(x_trans)])
+
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x_vect, y , stratify=y, random_state=0)
+
+from sklearn.linear_model import LogisticRegression
+clf = LogisticRegression()
+
+clf.fit(x_train, y_train)
+x_test
+
+y_pred = clf.predict(x_test)
+
+from sklearn.metrics import accuracy_score
+
+accuracy_score(y_test, y_pred)
+
+accuracy_score(y_test, y_pred)*100
+
+accuracy_score(y_test, y_pred)*100
